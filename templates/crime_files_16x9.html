@@ -1,6 +1,420 @@
-<!--
-V2 visual specification is implemented by tools/render_crime.js.
-This template is retained as the design reference for future browser-based
-enhancements: dark cinematic frame, red accents, restrained typewriter captions,
-and scene-specific visual motifs.
--->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{{SERIES_NAME}} — {{STORY_TITLE}}</title>
+
+<style>
+:root{
+  --bg:{{THEME_BG}};
+  --white:{{THEME_WHITE}};
+  --muted:{{THEME_MUTED}};
+  --red:{{THEME_RED}};
+  --red-light:{{THEME_RED_LIGHT}};
+  --image-opacity:{{IMAGE_OPACITY}};
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;overflow:hidden;
+  background:var(--bg);color:var(--white);
+  font-family:"Oswald",Arial,sans-serif
+}
+.container{
+  width:100vw;height:100dvh;overflow-y:auto;overflow-x:hidden;
+  scroll-snap-type:y mandatory;scrollbar-width:none
+}
+.container::-webkit-scrollbar{display:none}
+.slide{
+  position:relative;width:100vw;height:100dvh;min-height:100dvh;
+  aspect-ratio:16/9;overflow:hidden;
+  scroll-snap-align:start;scroll-snap-stop:always;isolation:isolate
+}
+.crime-image{
+  position:absolute;inset:0;background-position:center;background-size:cover;
+  background-repeat:no-repeat;opacity:var(--image-opacity);
+  transform:scale(1.04);
+  filter:grayscale(.25) contrast(1.18) brightness(.72);
+  z-index:-5;transition:transform 1.5s
+}
+.slide.active .crime-image{transform:scale(1.09)}
+.image-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,#030506f7,#030506c7 27%,#03050659 58%,#030506e0),
+             linear-gradient(#000d,transparent 32%,#000000eb);
+  z-index:-4
+}
+.grain{
+  position:absolute;inset:0;opacity:.075;
+  background:repeating-linear-gradient(0deg,transparent 0 2px,#fff1 3px);
+  z-index:-2
+}
+.red-glow{
+  position:absolute;width:45vw;height:45vw;border-radius:50%;
+  right:-15%;top:15%;
+  background:radial-gradient(circle,var(--red-glow),transparent 68%);
+  z-index:-3
+}
+.frame{
+  position:absolute;inset:18px;border:1px solid #fff3;z-index:20
+}
+.frame:before{
+  content:"";position:absolute;inset:7px;border:1px solid #b51f2852
+}
+.corner{
+  position:absolute;width:45px;height:45px;
+  border-color:var(--red-light);border-style:solid
+}
+.tl{top:-1px;left:-1px;border-width:3px 0 0 3px}
+.tr{top:-1px;right:-1px;border-width:3px 3px 0 0}
+.bl{bottom:-1px;left:-1px;border-width:0 0 3px 3px}
+.br{bottom:-1px;right:-1px;border-width:0 3px 3px 0}
+
+.progress-track{
+  position:absolute;top:0;left:0;width:100%;height:3px;
+  background:#fff1;z-index:30
+}
+.progress-fill{
+  width:0;height:100%;
+  background:linear-gradient(90deg,var(--red),var(--red-light))
+}
+.top-bar{
+  position:absolute;top:32px;left:60px;right:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  z-index:25;font-size:11px;letter-spacing:3px;color:#eeeaa;
+  text-transform:uppercase
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+  width:30px;height:30px;border:1px solid var(--red);
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(45deg);color:var(--red-light)
+}
+.brand-mark span{transform:rotate(-45deg)}
+.case-status{display:flex;align-items:center;gap:8px}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--red-light);box-shadow:0 0 10px var(--red);
+  animation:pulse 1.2s infinite
+}
+@keyframes pulse{50%{opacity:.35}}
+
+.story-content{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:min(760px,54vw);z-index:15
+}
+.left{left:7vw}.right{right:7vw}
+.center{left:50%;transform:translate(-50%,-50%);text-align:center}
+.chapter{
+  display:flex;align-items:center;gap:12px;margin-bottom:17px;
+  font-size:12px;letter-spacing:4px;color:var(--red-light);
+  text-transform:uppercase
+}
+.chapter:before{content:"";width:38px;height:1px;background:var(--red)}
+.center .chapter{justify-content:center}
+.story-title{
+  margin:0;font-size:clamp(38px,4.5vw,76px);line-height:.98;
+  text-transform:uppercase;font-weight:600;text-shadow:0 5px 25px #000b
+}
+.divider{display:flex;align-items:center;gap:12px;margin:25px 0}
+.divider-line{
+  width:80px;height:2px;
+  background:linear-gradient(90deg,var(--red),transparent)
+}
+.story-text{
+  margin:0;max-width:680px;
+  font-family:"Special Elite","Courier New",monospace;
+  font-size:clamp(15px,1.35vw,21px);line-height:1.75;color:var(--muted)
+}
+.case-number{
+  position:absolute;right:7vw;bottom:13vh;
+  font-size:clamp(90px,15vw,220px);font-weight:700;
+  color:#fff09;line-height:.8;pointer-events:none;z-index:-1
+}
+.bottom-info{
+  position:absolute;left:60px;right:60px;bottom:32px;
+  display:flex;justify-content:space-between;z-index:25;
+  font-size:10px;letter-spacing:3px;color:#eeeaa
+}
+.intro{display:flex;align-items:center;justify-content:center;text-align:center}
+.intro-content{position:relative;width:min(1000px,82vw);z-index:15}
+.intro-kicker{
+  margin-bottom:22px;font-size:12px;letter-spacing:7px;
+  color:var(--red-light);text-transform:uppercase
+}
+.intro-title{
+  margin:0;font-size:clamp(58px,8vw,120px);line-height:.88;
+  letter-spacing:-3px;font-weight:600;text-transform:uppercase
+}
+.intro-title span{color:var(--red-light)}
+.intro-subtitle{
+  margin:30px auto 0;max-width:700px;
+  font-family:"Special Elite",monospace;
+  font-size:clamp(15px,1.4vw,21px);line-height:1.7;color:var(--muted)
+}
+</style>
+</head>
+
+<body>
+<main class="container" id="app"></main>
+
+<script>
+/*
+  ============================================================
+  DYNAMIC CRIME DOCUMENTARY TEMPLATE
+  ============================================================
+
+  EXPECTED STORY DATA:
+
+  window.CRIME_STORY = {
+    series: {
+      name, mark, kicker, tagline
+    },
+    theme: {
+      bg, white, muted, red, redLight, redGlow, imageOpacity
+    },
+    intro: {
+      image, kicker, title, subtitle
+    },
+    scenes: [
+      {
+        chapter,
+        title,
+        text,
+        image,
+        textPosition: "left|center|right",
+        status,
+        number,
+        sceneLabel,
+        metaLabel,
+        duration,
+        zoom,
+        imagePosition
+      }
+    ],
+    outro: {
+      image,
+      kicker,
+      title,
+      subtitle
+    }
+  }
+
+  No case/story content is hardcoded in the renderer.
+  ============================================================
+*/
+
+const STORY = window.CRIME_STORY || {
+  series:{
+    name:"{{SERIES_NAME}}",
+    mark:"{{SERIES_MARK}}",
+    kicker:"{{INTRO_KICKER}}",
+    tagline:"{{INTRO_TAGLINE}}"
+  },
+  theme:{
+    bg:"{{THEME_BG}}",
+    white:"{{THEME_WHITE}}",
+    muted:"{{THEME_MUTED}}",
+    red:"{{THEME_RED}}",
+    redLight:"{{THEME_RED_LIGHT}}",
+    redGlow:"{{THEME_RED_GLOW}}",
+    imageOpacity:"{{IMAGE_OPACITY}}"
+  },
+  intro:{
+    image:"{{INTRO_IMAGE}}",
+    kicker:"{{INTRO_KICKER}}",
+    title:"{{STORY_TITLE}}",
+    subtitle:"{{STORY_SUBTITLE}}"
+  },
+  scenes:[],
+  outro:{
+    image:"{{OUTRO_IMAGE}}",
+    kicker:"{{OUTRO_KICKER}}",
+    title:"{{OUTRO_TITLE}}",
+    subtitle:"{{OUTRO_SUBTITLE}}"
+  }
+};
+
+function esc(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function pad(value,size=2){
+  return String(value).padStart(size,"0");
+}
+
+function imageStyle(scene){
+  const position = scene.imagePosition || "center center";
+  const zoom = Number(scene.zoom || 1.04);
+  return `background-image:url("${esc(scene.image || "")}");
+          background-position:${esc(position)};
+          transform:scale(${zoom});`;
+}
+
+function slideChrome(){
+  return `
+    <div class="progress-track"><div class="progress-fill"></div></div>
+    <div class="grain"></div>
+    <div class="red-glow"></div>
+    <div class="frame">
+      <span class="corner tl"></span>
+      <span class="corner tr"></span>
+      <span class="corner bl"></span>
+      <span class="corner br"></span>
+    </div>`;
+}
+
+function buildIntro(){
+  const d = STORY.intro || {};
+  return `
+    <section class="slide intro" data-duration="${Number(d.duration || STORY.introDuration || 5)}">
+      ${slideChrome()}
+      <div class="crime-image" style="${imageStyle(d)}"></div>
+      <div class="image-overlay"></div>
+
+      <div class="intro-content">
+        <div class="intro-kicker">${esc(d.kicker || "")}</div>
+        <h1 class="intro-title">${esc(d.title || STORY.title || "")}</h1>
+        <p class="intro-subtitle">${esc(d.subtitle || "")}</p>
+      </div>
+    </section>`;
+}
+
+function buildScene(d,i,total){
+  const duration = Number(d.duration || 8);
+  const position = d.textPosition || "left";
+
+  return `
+    <section class="slide"
+      data-duration="${duration}"
+      data-index="${i}"
+      data-zoom="${Number(d.zoom || 1.09)}">
+
+      ${slideChrome()}
+
+      <div class="crime-image"
+        style="${imageStyle({...d,zoom:Number(d.zoom || 1.04)})}">
+      </div>
+
+      <div class="image-overlay"></div>
+
+      <div class="top-bar">
+        <div class="brand">
+          <div class="brand-mark"><span>${esc(STORY.series.mark || "")}</span></div>
+          <div>${esc(STORY.series.name || "")}</div>
+        </div>
+
+        <div class="case-status">
+          <span class="status-dot"></span>
+          <span>${esc(d.status || "")}</span>
+        </div>
+      </div>
+
+      <div class="story-content ${["left","center","right"].includes(position) ? position : "left"}">
+        <div class="chapter">${esc(d.chapter || "")}</div>
+        <h2 class="story-title">${esc(d.title || "")}</h2>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <div>${esc(d.dividerSymbol || "◆")}</div>
+        </div>
+
+        <p class="story-text">${esc(d.text || "")}</p>
+      </div>
+
+      <div class="case-number">${esc(d.number ?? pad(i+1))}</div>
+
+      <div class="bottom-info">
+        <div>${esc(d.sceneLabel || `SCENE ${pad(i+1)}`)}</div>
+        <div>${esc(d.metaLabel || "")}</div>
+      </div>
+    </section>`;
+}
+
+function buildOutro(){
+  const d = STORY.outro || {};
+  return `
+    <section class="slide intro outro-slide"
+      data-duration="${Number(d.duration || STORY.outroDuration || 6)}">
+      ${slideChrome()}
+
+      <div class="crime-image" style="${imageStyle(d)}"></div>
+      <div class="image-overlay"></div>
+
+      <div class="intro-content">
+        <div class="intro-kicker">${esc(d.kicker || "")}</div>
+        <h1 class="intro-title">${esc(d.title || "")}</h1>
+        <p class="intro-subtitle">${esc(d.subtitle || "")}</p>
+      </div>
+    </section>`;
+}
+
+function applyTheme(){
+  const t = STORY.theme || {};
+  const root = document.documentElement;
+  if(t.bg) root.style.setProperty("--bg",t.bg);
+  if(t.white) root.style.setProperty("--white",t.white);
+  if(t.muted) root.style.setProperty("--muted",t.muted);
+  if(t.red) root.style.setProperty("--red",t.red);
+  if(t.redLight) root.style.setProperty("--red-light",t.redLight);
+  if(t.redGlow) root.style.setProperty("--red-glow",t.redGlow);
+  if(t.imageOpacity != null)
+    root.style.setProperty("--image-opacity",t.imageOpacity);
+}
+
+function build(){
+  applyTheme();
+
+  const scenes = Array.isArray(STORY.scenes) ? STORY.scenes : [];
+
+  document.title =
+    `${STORY.series?.name || "Crime Documentary"} — ${STORY.title || ""}`;
+
+  document.getElementById("app").innerHTML =
+    buildIntro() +
+    scenes.map((d,i)=>buildScene(d,i,scenes.length)).join("") +
+    buildOutro();
+
+  initializeSlides();
+}
+
+function initializeSlides(){
+  const slides = [...document.querySelectorAll(".slide")];
+
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+
+      const slide = entry.target;
+      slide.classList.add("active");
+
+      const fill = slide.querySelector(".progress-fill");
+      if(!fill) return;
+
+      const duration = Number(slide.dataset.duration || 8);
+
+      fill.style.transition = "none";
+      fill.style.width = "0%";
+
+      requestAnimationFrame(()=>{
+        fill.style.transition = `width ${duration}s linear`;
+        fill.style.width = "100%";
+      });
+    });
+  },{
+    root:document.getElementById("app"),
+    threshold:.65
+  });
+
+  slides.forEach(slide=>observer.observe(slide));
+}
+
+build();
+</script>
+</body>
+</html>
