@@ -54,18 +54,69 @@ const palettes = {
  verdict:["#080808","#241c1c","#b52727"], ending:["#070707","#151515","#8e2020"]
 };
 function svgFor(type, t){
- const p=palettes[type]||palettes.case_file;
- const cx=640+Math.sin(t*.7)*80, cy=330+Math.cos(t*.55)*25;
- let shapes="";
- if(type.includes("rio")) shapes = `<circle cx="970" cy="150" r="70" fill="${p[2]}" opacity=".55"/><path d="M0 560 Q260 430 500 560 T1000 540 T1400 560 V720 H0Z" fill="${p[1]}"/><path d="M780 530 L880 300 L980 530Z" fill="#111"/><rect x="850" y="360" width="58" height="170" fill="#070707"/>`;
- else if(type==="phone") shapes = `<rect x="510" y="105" width="260" height="500" rx="30" fill="#111" stroke="${p[2]}" stroke-width="5"/><rect x="535" y="145" width="210" height="390" rx="8" fill="#0b1116"/><circle cx="640" cy="568" r="18" fill="#222"/><path d="M565 230h150M565 285h115M565 340h145" stroke="#8c8c8c" stroke-width="7" opacity=".5"/>`;
- else if(type==="money"||type==="payment") shapes = `<rect x="310" y="245" width="660" height="230" rx="18" fill="#101510" stroke="${p[2]}" stroke-width="5"/><circle cx="640" cy="360" r="70" fill="none" stroke="#677d65" stroke-width="7"/><text x="640" y="388" text-anchor="middle" font-size="72" fill="#899f87">$</text>`;
- else if(type==="timeline") shapes = `<path d="M180 360 H1100" stroke="${p[2]}" stroke-width="8"/><g fill="#ddd"><circle cx="270" cy="360" r="15"/><circle cx="500" cy="360" r="15"/><circle cx="740" cy="360" r="15"/><circle cx="970" cy="360" r="15"/></g>`;
- else if(type==="court"||type==="verdict") shapes = `<path d="M380 210h520M450 210v300M830 210v300M340 510h600" stroke="#777" stroke-width="12"/><path d="M410 280h420" stroke="${p[2]}" stroke-width="8"/><path d="M520 510v-150M640 510v-150M760 510v-150" stroke="#555" stroke-width="8"/>`;
- else if(type==="evidence") shapes = `<g stroke="${p[2]}" fill="none" stroke-width="5"><rect x="280" y="180" width="300" height="190"/><rect x="610" y="280" width="300" height="190"/><path d="M580 275L610 315M580 335L610 360M700 240L830 460"/></g>`;
- else if(type==="arrest") shapes = `<circle cx="640" cy="280" r="105" fill="#151515" stroke="${p[2]}" stroke-width="5"/><path d="M510 570 Q640 380 770 570" fill="#111" stroke="#444" stroke-width="4"/><path d="M530 410L750 410" stroke="${p[2]}" stroke-width="7"/>`;
- else shapes = `<rect x="330" y="180" width="620" height="350" fill="#101010" stroke="#444" stroke-width="4"/><path d="M390 250h500M390 310h420M390 370h470M390 430h330" stroke="#666" stroke-width="8" opacity=".65"/>`;
- return `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720"><defs><radialGradient id="g"><stop stop-color="${p[1]}"/><stop offset="1" stop-color="${p[0]}"/></radialGradient></defs><rect width="1280" height="720" fill="url(#g)"/><circle cx="${cx}" cy="${cy}" r="280" fill="${p[2]}" opacity=".09"/>${shapes}</svg>`;
+  const p = palettes[type] || palettes.case_file;
+  const cx = 640 + Math.sin(t * 0.7) * 80;
+  const cy = 330 + Math.cos(t * 0.55) * 25;
+  let shapes = "";
+
+  if(type.includes("rio")){
+    shapes =
+      '<circle cx="970" cy="150" r="70" fill="' + p[2] + '" opacity=".55"/>' +
+      '<path d="M0 560 Q260 430 500 560 T1000 540 T1400 560 V720 H0Z" fill="' + p[1] + '"/>' +
+      '<path d="M780 530 L880 300 L980 530Z" fill="#111"/>' +
+      '<rect x="850" y="360" width="58" height="170" fill="#070707"/>';
+  }
+  else if(type === "phone"){
+    shapes =
+      '<rect x="510" y="105" width="260" height="500" rx="30" fill="#111" stroke="' + p[2] + '" stroke-width="5"/>' +
+      '<rect x="535" y="145" width="210" height="390" rx="8" fill="#0b1116"/>' +
+      '<circle cx="640" cy="568" r="18" fill="#222"/>' +
+      '<path d="M565 230h150M565 285h115M565 340h145" stroke="#8c8c8c" stroke-width="7" opacity=".5"/>';
+  }
+  else if(type === "money" || type === "payment"){
+    shapes =
+      '<rect x="310" y="245" width="660" height="230" rx="18" fill="#101510" stroke="' + p[2] + '" stroke-width="5"/>' +
+      '<circle cx="640" cy="360" r="70" fill="none" stroke="#677d65" stroke-width="7"/>' +
+      '<text x="640" y="388" text-anchor="middle" font-size="72" fill="#899f87">$</text>';
+  }
+  else if(type === "timeline"){
+    shapes =
+      '<path d="M180 360 H1100" stroke="' + p[2] + '" stroke-width="8"/>' +
+      '<g fill="#ddd"><circle cx="270" cy="360" r="15"/><circle cx="500" cy="360" r="15"/>' +
+      '<circle cx="740" cy="360" r="15"/><circle cx="970" cy="360" r="15"/></g>';
+  }
+  else if(type === "court" || type === "verdict"){
+    shapes =
+      '<path d="M380 210h520M450 210v300M830 210v300M340 510h600" stroke="#777" stroke-width="12"/>' +
+      '<path d="M410 280h420" stroke="' + p[2] + '" stroke-width="8"/>' +
+      '<path d="M520 510v-150M640 510v-150M760 510v-150" stroke="#555" stroke-width="8"/>';
+  }
+  else if(type === "evidence"){
+    shapes =
+      '<g stroke="' + p[2] + '" fill="none" stroke-width="5">' +
+      '<rect x="280" y="180" width="300" height="190"/>' +
+      '<rect x="610" y="280" width="300" height="190"/>' +
+      '<path d="M580 275L610 315M580 335L610 360M700 240L830 460"/></g>';
+  }
+  else if(type === "arrest"){
+    shapes =
+      '<circle cx="640" cy="280" r="105" fill="#151515" stroke="' + p[2] + '" stroke-width="5"/>' +
+      '<path d="M510 570 Q640 380 770 570" fill="#111" stroke="#444" stroke-width="4"/>' +
+      '<path d="M530 410L750 410" stroke="' + p[2] + '" stroke-width="7"/>';
+  }
+  else{
+    shapes =
+      '<rect x="330" y="180" width="620" height="350" fill="#101010" stroke="#444" stroke-width="4"/>' +
+      '<path d="M390 250h500M390 310h420M390 370h470M390 430h330" stroke="#666" stroke-width="8" opacity=".65"/>';
+  }
+
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720">' +
+    '<defs><radialGradient id="g"><stop stop-color="' + p[1] + '"/>' +
+    '<stop offset="1" stop-color="' + p[0] + '"/></radialGradient></defs>' +
+    '<rect width="1280" height="720" fill="url(#g)"/>' +
+    '<circle cx="' + cx + '" cy="' + cy + '" r="280" fill="' + p[2] + '" opacity=".09"/>' +
+    shapes +
+    '</svg>';
 }
 window.setScene=(s,index)=>{
  document.getElementById("chapter").textContent=s.chapter;
