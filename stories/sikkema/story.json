@@ -1,0 +1,246 @@
+﻿{
+  "story_id": "sikkema",
+  "title": "THE KILLING IN RIO",
+  "subtitle": "The Murder-for-Hire Case of Brent Sikkema",
+  "format": "long_form",
+  "aspect_ratio": "16:9",
+  "target_duration_minutes": 10,
+
+  "visuals": {
+    "intro": "visuals/intro/true_crime_office_night.jpg",
+    "outro": "visuals/outro/noir_office_haze.jpg"
+  },
+
+  "sources": [
+    {
+      "type": "official",
+      "organization": "U.S. Department of Justice",
+      "title": "U.S. Attorney Announces Conviction of Daniel Sikkema",
+      "url": "https://www.justice.gov/usao-sdny/pr/us-attorney-announces-conviction-daniel-sikkema-murder-hire"
+    },
+    {
+      "type": "official",
+      "organization": "U.S. Department of Justice",
+      "title": "Manhattan Man Charged in Murder-for-Hire Plot",
+      "url": "https://www.justice.gov/usao-sdny/pr/manhattan-man-charged-murder-hire-plot-resulting-death-his-husband-brazil"
+    },
+    {
+      "type": "official",
+      "organization": "U.S. Department of Justice",
+      "title": "United States v. Sikkema Superseding Indictment",
+      "url": "https://www.justice.gov/d9/2025-02/u.s._v._sikkema_indictment.pdf"
+    }
+  ],
+
+  "chapters": [
+    {
+      "id": "opening",
+      "title": "THE DISTANCE",
+      "segments": [
+        {
+          "id": "opening_01",
+          "narration": "On January 14, 2024, a murder took place in Rio de Janeiro. The victim was Brent Sikkema, a New York art dealer who regularly traveled to Brazil. But the investigation would soon point far beyond the city where he died.",
+          "visual": "visuals/cases/sikkema/rio_night_cityscape.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "established"
+        },
+        {
+          "id": "opening_02",
+          "narration": "Thousands of miles away, in New York, investigators were looking at Brent's estranged husband, Daniel Sikkema. What followed was an investigation spanning countries, communications, money and eventually a federal courtroom in Manhattan.",
+          "visual": "visuals/common/overhead_map_investigation.jpg",
+          "motion": "slow_pan",
+          "fact_status": "established"
+        },
+        {
+          "id": "opening_03",
+          "narration": "On May 22, 2026, a federal jury gave the case its answer. Daniel Sikkema was found guilty.",
+          "visual": "visuals/common/courthouse_dusk_moody.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "established"
+        }
+      ]
+    },
+
+    {
+      "id": "brent",
+      "title": "BRENT SIKKEMA",
+      "segments": [
+        {
+          "id": "brent_01",
+          "narration": "Brent Sikkema was part of New York's contemporary art world and owned property in Rio de Janeiro. His life connected two very different places.",
+          "visual": "visuals/common/dark_wooden_desk.jpg",
+          "motion": "slow_drift",
+          "fact_status": "established"
+        },
+        {
+          "id": "brent_02",
+          "narration": "Brent and Daniel Sikkema were involved in contentious divorce proceedings. According to the federal indictment, prosecutors alleged that during 2023 Daniel agreed with another person to arrange Brent's killing.",
+          "visual": "visuals/common/investigative_desk_noir.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "allegation"
+        },
+        {
+          "id": "brent_03",
+          "narration": "The indictment also alleged payments connected to the arrangement, with efforts to conceal the source of the money through intermediaries.",
+          "visual": "visuals/common/dark_investigative_desk.jpg",
+          "motion": "slow_pan",
+          "fact_status": "allegation"
+        }
+      ]
+    },
+
+    {
+      "id": "rio",
+      "title": "RIO",
+      "segments": [
+        {
+          "id": "rio_01",
+          "narration": "On January 14, 2024, Brent Sikkema was killed in Rio de Janeiro. According to the indictment, the person identified as CC-1 carried out the killing.",
+          "visual": "visuals/cases/sikkema/rio_street_night.jpg",
+          "motion": "slow_forward_drift",
+          "fact_status": "established"
+        },
+        {
+          "id": "rio_02",
+          "narration": "Four days later, CC-1 was arrested by Brazilian law enforcement.",
+          "visual": "visuals/common/empty_courthouse_corridor.jpg",
+          "motion": "slow_pull_back",
+          "fact_status": "established"
+        },
+        {
+          "id": "rio_03",
+          "narration": "The indictment alleged that communications continued after the killing, including arrangements for an additional payment.",
+          "visual": "visuals/common/smartphone_dark_table.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "allegation"
+        }
+      ]
+    },
+
+    {
+      "id": "trail",
+      "title": "THE TRAIL",
+      "segments": [
+        {
+          "id": "trail_01",
+          "narration": "The investigation was no longer only about what happened in Rio. Investigators had to follow the people, communications, payments and connections that could link the killing to events in another country.",
+          "visual": "visuals/common/overhead_map_investigation.jpg",
+          "motion": "slow_zoom",
+          "fact_status": "established"
+        },
+        {
+          "id": "trail_02",
+          "narration": "The FBI became involved in the investigation. Federal prosecutors later said the investigation helped uncover efforts to avoid detection.",
+          "visual": "visuals/common/silhouette_city_night.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "established"
+        }
+      ]
+    },
+
+    {
+      "id": "federal_case",
+      "title": "THE FEDERAL CASE",
+      "segments": [
+        {
+          "id": "federal_01",
+          "narration": "Daniel Sikkema was taken into custody in the United States in 2024. In February 2025, federal prosecutors announced charges against him.",
+          "visual": "visuals/common/courthouse_dusk_moody.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "established"
+        },
+        {
+          "id": "federal_02",
+          "narration": "The charges included murder-for-hire conspiracy resulting in death, murder-for-hire resulting in death, conspiracy to murder or maim in a foreign country, and passport fraud.",
+          "visual": "visuals/common/dark_wooden_desk.jpg",
+          "motion": "slow_pan",
+          "fact_status": "established"
+        },
+        {
+          "id": "federal_03",
+          "narration": "At that stage, these were allegations contained in an indictment. Daniel Sikkema was presumed innocent unless and until proven guilty.",
+          "visual": "visuals/common/empty_courthouse_corridor.jpg",
+          "motion": "slow_pull_back",
+          "fact_status": "legal_context"
+        }
+      ]
+    },
+
+    {
+      "id": "theory",
+      "title": "THE THEORY",
+      "segments": [
+        {
+          "id": "theory_01",
+          "narration": "At the center of the federal case was a simple question: did Daniel Sikkema arrange for another person to kill Brent?",
+          "visual": "visuals/common/investigative_desk_noir.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "trial_context"
+        },
+        {
+          "id": "theory_02",
+          "narration": "Prosecutors argued that Daniel wanted Brent dead and arranged for someone else to carry out the killing. The defense challenged the government's interpretation of the evidence.",
+          "visual": "visuals/common/silhouette_city_night.jpg",
+          "motion": "slow_drift",
+          "fact_status": "trial_context"
+        },
+        {
+          "id": "theory_03",
+          "narration": "Ultimately, the government had to prove its case beyond a reasonable doubt.",
+          "visual": "visuals/common/courthouse_dusk_moody.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "legal_context"
+        }
+      ]
+    },
+
+    {
+      "id": "twist",
+      "title": "THE TWIST",
+      "segments": [
+        {
+          "id": "twist_01",
+          "narration": "This was not simply a murder investigation. The killing happened in Brazil, while the alleged planning and investigation reached into the United States.",
+          "visual": "visuals/common/overhead_map_investigation.jpg",
+          "motion": "slow_zoom_out",
+          "fact_status": "established"
+        },
+        {
+          "id": "twist_02",
+          "narration": "The Department of Justice later said Daniel used a burner phone line to order the killing, and that the FBI investigation thwarted efforts to evade detection.",
+          "visual": "visuals/common/smartphone_dark_table.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "established"
+        }
+      ]
+    },
+
+    {
+      "id": "verdict",
+      "title": "THE VERDICT",
+      "segments": [
+        {
+          "id": "verdict_01",
+          "narration": "On May 22, 2026, a federal jury in New York found Daniel Sikkema guilty.",
+          "visual": "visuals/common/courthouse_dusk_moody.jpg",
+          "motion": "slow_push_in",
+          "fact_status": "established"
+        },
+        {
+          "id": "verdict_02",
+          "narration": "What had begun as an investigation into a killing in Rio had become a federal murder-for-hire case in Manhattan. The jury found Daniel Sikkema criminally responsible.",
+          "visual": "visuals/common/empty_courthouse_corridor.jpg",
+          "motion": "slow_pull_back",
+          "fact_status": "established"
+        }
+      ]
+    }
+  ],
+
+  "ending": {
+    "narration": "Brent Sikkema was killed in Rio. The investigation crossed borders. And the final judgment came in Manhattan. Two cities, thousands of miles apart, connected by a murder-for-hire case that ended with a federal conviction.",
+    "visual": "visuals/outro/noir_office_haze.jpg",
+    "motion": "very_slow_pull_back",
+    "transition": "fade_to_black"
+  }
+}
