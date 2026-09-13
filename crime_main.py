@@ -133,7 +133,7 @@ def load_story():
             f"Story file not found: {STORY_FILE}"
         )
 
-    story = json.loads(STORY_FILE.read_text(encoding="utf-8"))
+    story = json.loads(STORY_FILE.read_text(encoding="utf-8-sig"))
 
     if "chapters" in story:
         scenes = flatten_story(story)
