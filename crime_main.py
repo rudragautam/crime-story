@@ -153,7 +153,7 @@ Return ONLY JSON:
 """
     try:
         res = client.models.generate_content(
-            model=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"),
+            model=os.environ.get("GEMINI_MODEL", "gemini-3.6-flash"),
             contents=prompt,
         )
         text = res.text.strip()
@@ -189,10 +189,10 @@ def concat_audio(paths):
     with listing.open("w") as f:
         for p in paths:
             f.write(f"file '{p.resolve()}'\n")
-    out = WORK / "narration.mp3"
+    out = WORK / "narration.wav"
     subprocess.run([
         "ffmpeg", "-y", "-f", "concat", "-safe", "0",
-        "-i", str(listing), "-c", "copy", str(out)
+        "-i", str(listing), "-c:a", "pcm_s16le", str(out)
     ], check=True)
     return out
 

@@ -6,7 +6,7 @@ Generic long-form crime documentary automation.
 
 - Pulls a primary DOJ source.
 - Generates a continuous documentary script with Gemini.
-- Uses local eSpeak only for the temporary preview; AWS/Polly is intentionally disabled.
+- Uses local eSpeak only for the temporary preview; AWS/Polly is intentionally disabled. Gemini uses the current `gemini-3.6-flash` model.
 - Renders a restrained 16:9 cinematic sequence.
 - Uses short typewriter-style captions instead of full-screen paragraphs.
 - Produces a 720p H.264 test MP4 with a deliberately smaller bitrate/CRF target.
